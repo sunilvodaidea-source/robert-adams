@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ರಾಬರ್ಟ್ ಆಡಮ್ಸ್ (ಆಧ್ಯಾತ್ಮಿಕ ಗುರು)</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:'Noto Sans Kannada',Arial,sans-serif;background:#fff;color:#202122}
+.editing [contenteditable="true"]:hover{background:#fffbe6}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#f5f5f5;border-bottom:1px solid #ddd;font-size:13px;position:sticky;top:0;z-index:100}
+.topbar button{background:#1a4fc0;color:white;border:0;padding:7px 12px;cursor:pointer}
+.topbar button.unlocked{background:#0a7a3d}
+.main{display:flex;max-width:1360px;margin:auto;gap:14px;padding:12px 8px}
+.left{width:220px;flex-shrink:0;font-size:14px;line-height:1.8;text-align:center;display:flex;flex-direction:column;gap:10px}
+.blue-box{background:#1a4fc0;color:white;padding:5px 6px;font-size:14px;line-height:1.6;width:100%;border:0}
+button.blue-box{cursor:pointer}
+.center{flex:1;min-width:0}
+.center h1{font-size:30px;margin:0 0 8px;border-bottom:1px solid #aaa;padding-bottom:10px}
+.center p{font-size:15.5px;line-height:1.85}
+.center h2{font-size:22px;border-bottom:1px solid #aaa;padding-bottom:6px;margin-top:28px}
+.center h3{font-size:17px;margin-top:22px}
+.right{width:290px;flex-shrink:0;border:1px solid #ddd;height:fit-content}
+.r-head{text-align:center;padding:9px;font-weight:bold;font-size:15px;background:#f9e8a8}
+.photo-box{background:#ededed;height:270px;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer}
+.photo-box img{width:100%;height:100%;object-fit:cover}
+.r-table{width:100%;font-size:13.5px;border-collapse:collapse}
+.r-table td{padding:8px;vertical-align:top;line-height:1.6}
+.editor-box{border:1px solid #ddd;padding:12px 4px;background:#f9f9f9;text-align:center;margin-top:10px}
+.editor-box .label{font-size:13px;color:#555}
+.editor-box .name{font-size:16px;font-weight:bold;margin:4px 0}
+.editor-box .mail{font-family:Arial,sans-serif;font-size:11.5px;color:#1a4fc0;white-space:nowrap}
+.my-photo-box{width:110px;height:110px;margin:10px auto 0;border-radius:50%;background:#e8e8e8;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer}
+.my-photo-box img{width:100%;height:100%;object-fit:cover}
+#page2{display:none}
+.top2{display:flex;gap:10px;padding:14px 20px;border-bottom:1px solid #ddd}
+.top2 button{background:#1a4fc0;color:white;border:0;padding:7px 14px;cursor:pointer}
+.wrap2{max-width:800px;margin:auto;padding:30px 20px}
+.wrap2 h1{font-size:32px;border-bottom:1px solid #aaa;padding-bottom:10px}
+.new{border:1px dashed #aaa;padding:14px;min-height:100px;font-size:17px;line-height:1.9;outline:none}
+.new:empty:before{content:"ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ ಬರೆಯಿರಿ...";color:#999}
+.post{border:1px solid #ddd;margin-bottom:20px;padding:0;background:#fff}
+.post .new{border:0;border-bottom:1px solid #eee}
+.post-date{font-size:12.5px;color:#666;padding:6px 14px 2px}
+.post-photo img{width:100%;display:block;max-height:500px;object-fit:cover}
+.post-photo:empty{display:none}
+.post-photo-btns{display:none;padding:8px 14px;gap:8px}
+body.editing .post-photo-btns{display:flex}
+.post-photo-btns button{background:#f0f2f5;border:0;padding:7px 12px;border-radius:20px;cursor:pointer;font-size:13px}
+.post-del{text-align:right;padding:4px 10px;display:none}
+body.editing .post-del{display:block}
+.post-del button{background:#fff;border:1px solid #e00;color:#e00;padding:4px 10px;border-radius:20px;cursor:pointer;font-size:12px}
+.like-row{display:flex;gap:10px;align-items:center;padding:10px 14px;border-bottom:1px solid #eee}
+.like-btn{background:#f0f2f5;border:0;padding:7px 14px;border-radius:20px;cursor:pointer;font-size:14px}
+.like-btn.liked{background:#dbeafe;color:#1a4fc0;font-weight:bold}
+.like-count{font-size:14px;color:#555}
+.cmt-list{padding:10px 14px;font-size:14px;line-height:1.7}
+.cmt-list div{padding:6px 0;border-bottom:1px solid #f0f0f0}
+.cmt-box{display:flex;gap:8px;padding:10px 14px;background:#f9f9f9}
+.cmt-box input{flex:1;padding:8px;border:1px solid #ccc;border-radius:20px;font-size:14px;font-family:inherit}
+.cmt-box button{background:#1a4fc0;color:#fff;border:0;padding:8px 14px;border-radius:20px;cursor:pointer}
+.plus-btn{width:50px;height:50px;border-radius:50%;background:#1a4fc0;color:#fff;border:0;font-size:26px;cursor:pointer;display:none;margin:10px auto}
+body.editing .plus-btn{display:block}
+@media(max-width:800px){.main{flex-direction:column}.left,.right{width:100%}.editor-box .mail{white-space:normal;word-break:break-all}}
+</style>
+</head>
+<body class="locked">
+<div class="topbar"><span id="lockStatus">🔒 ಓದಲು ಮಾತ್ರ - ಎಡಿಟ್ ಲಾಕ್ ಆಗಿದೆ</span><span><button id="changePassBtn" onclick="changePassword()" style="display:none;background:#555">🔑 ಪಾಸ್ವರ್ಡ್ ಬದಲಾಯಿಸಿ</button> <button id="loginBtn" onclick="toggleEdit()">🔑 ಸಂಪಾದಕರು</button></span></div>
+<div id="page1"><div class="main">
+<div class="left"><div class="blue-box">ಪರಿಚಯ</div><button class="blue-box" onclick="showPage2()">ರಾಬರ್ಟ್ ಆಡಮ್ಸ್ ಬರಹಗಳು</button>
+<div class="editor-box"><div class="label">ವೆಬ್ ಪೇಜ್ ಸಂಪಾದಕರು :</div><div class="name" contenteditable="false">ಚಿನ್ವತ</div><div class="mail" contenteditable="false">sunilvodaidea@gmail.com</div>
+<div class="my-photo-box" onclick="pickPhoto('myphoto2')"><img id="preview2" src=""></div><input type="file" id="myphoto2" accept="image/*" hidden></div></div>
+<div class="center"><h1 contenteditable="false">ರಾಬರ್ಟ್ ಆಡಮ್ಸ್ (ಆಧ್ಯಾತ್ಮಿಕ ಗುರು)</h1><p contenteditable="false">ವಿಕಿಪೀಡಿಯ, ಮುಕ್ತ ವಿಶ್ವಕೋಶದಿಂದ</p>
+<p contenteditable="false">ರಾಬರ್ಟ್ ಆಡಮ್ಸ್ (ಜನವರಿ 21, 1928 - ಮಾರ್ಚ್ 2, 1997) ಅಮೇರಿಕದ ಅದ್ವೈತ ಆಧ್ಯಾತ್ಮಿಕ ಗುರುವಾಗಿದ್ದರು. ನಂತರದ ಜೀವನದಲ್ಲಿ ಅಡಮ್ಸ್ ಕ್ಯಾಲಿಫೋರ್ನಿಯಾದಲ್ಲಿ ಸಣ್ಣ ಗುಂಪಿನ ಭಕ್ತರೊಂದಿಗೆ ಸತ್ಸಂಗವನ್ನು ನಡೆಸುತ್ತಿದ್ದರು. ಅವರು ಪ್ರಾಥಮಿಕವಾಗಿ ಜ್ಞಾನಯೋಗದ ಮಾರ್ಗವನ್ನು ಪ್ರತಿಪಾದಿಸುತ್ತಿದ್ದರು.</p>
+<p contenteditable="false">ಅಡಮ್ಸ್ ಅವರ ಬೋಧನೆಗಳು ಅವರ ಜೀವಿತಾವಧಿಯಲ್ಲಿ ಹೆಚ್ಚು ಪ್ರಸಿದ್ಧವಾಗಿರಲಿಲ್ಲ, ಆದರೆ ಅಂದಿನಿಂದ ಅದ್ವೈತದ ತತ್ವಶಾಸ್ತ್ರ ಮತ್ತು ಭಗವಾನ್ ಶ್ರೀ ರಮಣ ಮಹರ್ಷಿಯ ಪಾಶ್ಚಾತ್ಯ ಭಕ್ತರಲ್ಲಿ ವ್ಯಾಪಕವಾಗಿ ಪ್ರಸಾರವಾಗಿವೆ. ಅವರ ಬೋಧನೆಗಳ ಪುಸ್ತಕ, 'ಹೃದಯದ ಮೌನ: ರಾಬರ್ಟ್ ಆಡಮ್ಸ್‌ರೊಂದಿಗೆ ಸಂವಾದಗಳು', 1999ರಲ್ಲಿ ಪ್ರಕಟವಾಯಿತು.</p>
+<h2 contenteditable="false">ಜೀವನಚರಿತ್ರೆ</h2><h3 contenteditable="false">ಆರಂಭಿಕ ಜೀವನ</h3>
+<p contenteditable="false">ರಾಬರ್ಟ್ ಆಡಮ್ಸ್ ಜನವರಿ 21, 1928 ರಂದು ನ್ಯೂಯಾರ್ಕ್ ನಗರದ ಮ್ಯಾನ್‌ಹ್ಯಾಟನ್‌ನಲ್ಲಿ ಜನಿಸಿದರು ಮತ್ತು ನ್ಯೂಯಾರ್ಕ್ ನಗರದಲ್ಲಿ ಬೆಳೆದರು. ಅಡಮ್ಸ್ ತನಗೆ ನೆನಪಿರುವಷ್ಟು ಚಿಕ್ಕ ವಯಸ್ಸಿನಿಂದಲೇ ಎರಡು ಅಡಿ ಎತ್ತರದ, ಬಿಳಿ ಕೂದಲುಳ್ಳ, ಬಿಳಿ ಗಡ್ಡವಿರುವ ಸ್ವಾಮಿಯ ದರ್ಶನಗಳನ್ನು ಕಂಡಿದ್ದಾಗಿ ಹೇಳಿಕೊಂಡಿದ್ದರು. ಅದು ತನ್ನ ಹಾಸಿಗೆಗೆ ಪಾದದಲ್ಲಿ ಕುಳಿತು ತನಗೆ ಅರ್ಥವಾಗದ ಭಾಷೆಯಲ್ಲಿ ಮಾತನಾಡುತ್ತಿತ್ತು.</p>
+</div>
+<div class="right"><div class="r-head">ರಾಬರ್ಟ್ ಆಡಮ್ಸ್</div>
+<div class="photo-box" onclick="pickPhoto('myphoto')"><img id="preview" src=""></div><input type="file" id="myphoto" accept="image/*" hidden>
+<div class="r-head">ವೈಯಕ್ತಿಕ ಮಾಹಿತಿ</div>
+<table class="r-table"><tr><td>ಜನನ</td><td contenteditable="false">ಜನವರಿ 21, 1928<br>ನ್ಯೂಯಾರ್ಕ್ ನಗರ, ಯು.ಎಸ್.</td></tr><tr><td>ಮರಣ</td><td contenteditable="false">ಮಾರ್ಚ್ 2, 1997 (ವಯಸ್ಸು 69)<br>ಸೆಡೋನಾ, ಅರಿಜೋನಾ, ಯು.ಎಸ್.</td></tr><tr><td>ಗಮನಾರ್ಹ ಕೃತಿ</td><td contenteditable="false">ಹೃದಯದ ಮೌನ: ರಾಬರ್ಟ್ ಆಡಮ್ಸ್‌ರೊಂದಿಗೆ ಸಂವಾದಗಳು</td></tr><tr><td>ಗುರು</td><td contenteditable="false">ರಮಣ ಮಹರ್ಷಿ</td></tr></table></div></div></div>
+<div id="page2"><div class="top2"><button onclick="showPage1()">← ಹಿಂದಕ್ಕೆ ಹೋಗಿ</button></div><div class="wrap2"><h1>ರಾಬರ್ಟ್ ಆಡಮ್ಸ್ ಬರಹಗಳು</h1><div id="posts"></div><button class="plus-btn" onclick="addPost()">+</button></div></div>
+<script>
+let MY_PASSWORD=localStorage.getItem("robert_pass")||"chinwath123";let isEditing=false;
+function nowStr(){return new Date().toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'});}
+function getData(){try{return JSON.parse(localStorage.getItem("robert_posts")||"null")||null}catch(e){return null}}
+function savePosts(){let arr=[];document.querySelectorAll('.post').forEach(p=>{let img=p.querySelector('.post-photo img');arr.push({text:p.querySelector('.new').innerHTML,photo:img?img.src:"",date:p.querySelector('.post-date').textContent||nowStr(),likes:parseInt(p.querySelector('.like-count').dataset.n||0),liked:p.querySelector('.like-btn').classList.contains('liked'),cmts:[...p.querySelectorAll('.cmt-list div')].map(d=>d.textContent)});});try{localStorage.setItem("robert_posts",JSON.stringify(arr));}catch(e){alert("ಫೋಟೋ ತುಂಬಾ ದೊಡ್ಡದಿದೆ, ಚಿಕ್ಕ ಫೋಟೋ ಹಾಕಿ");}}
+function createPost(data){let d=data||{text:"",photo:"",date:nowStr(),likes:0,liked:false,cmts:[]};if(!d.date)d.date=nowStr();let div=document.createElement('div');div.className='post';div.innerHTML='<div class="post-del"><button onclick="deletePost(this)">🗑️ ಡಿಲೀಟ್</button></div><div class="new" contenteditable="false"></div><div class="post-date"></div><div class="post-photo"></div><div class="post-photo-btns"><button onclick="pickPostPhoto(this)">📷 ಫೋಟೋ ಹಾಕಿ / ಬದಲಾಯಿಸಿ</button><button onclick="removePostPhoto(this)">❌ ಫೋಟೋ ತೆಗೆ</button></div><input type="file" accept="image/*" hidden class="post-file"><div class="like-row"><button class="like-btn" onclick="likeThis(this)">👍 Like</button><span class="like-count" data-n="0">0 Likes</span></div><div class="cmt-list"></div><div class="cmt-box"><input placeholder=""><button onclick="addCmt(this)">ಕಳುಹಿಸು</button></div>';div.querySelector('.new').innerHTML=d.text;div.querySelector('.post-date').textContent="📅 "+d.date;if(d.photo){let im=document.createElement('img');im.src=d.photo;div.querySelector('.post-photo').appendChild(im);}let lb=div.querySelector('.like-btn');if(d.liked)lb.classList.add('liked');let lc=div.querySelector('.like-count');lc.dataset.n=d.likes;lc.textContent=d.likes+" Likes";let cl=div.querySelector('.cmt-list');d.cmts.forEach(t=>{let x=document.createElement('div');x.textContent=t;cl.appendChild(x);});document.getElementById('posts').appendChild(div);div.querySelector('.post-file').onchange=function(e){compressImage(e.target.files[0],function(url){let box=div.querySelector('.post-photo');box.innerHTML="";let im=document.createElement('img');im.src=url;box.appendChild(im);savePosts();});};div.querySelector('.new').addEventListener('click',function(){if(!isEditing){alert("ಟೈಪ್ ಮಾಡಲು ಮೊದಲು ಮೇಲ್ಗಡೆ 🔑 ಸಂಪಾದಕರು ಒತ್ತಿ ಪಾಸ್ವರ್ಡ್ ಹಾಕಿ");}});if(isEditing)div.querySelector('.new').contentEditable="true";return div;}
+function deletePost(btn){if(!confirm("ಈ ಬರಹ ಡಿಲೀಟ್ ಮಾಡಬೇಕಾ?"))return;btn.closest('.post').remove();savePosts();}
+function pickPostPhoto(btn){if(!isEditing){alert("ಫೋಟೋ ಹಾಕಲು ಮೊದಲು 🔑 ಸಂಪಾದಕರು ಒತ್ತಿ");return;}btn.closest('.post').querySelector('.post-file').click();}
+function removePostPhoto(btn){btn.closest('.post').querySelector('.post-photo').innerHTML="";savePosts();}
+function addPost(){if(!isEditing){alert("ಹೊಸ ಬಾಕ್ಸ್ ಸೇರಿಸಲು ಮೊದಲು 🔑 ಸಂಪಾದಕರು ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ ಪಾಸ್ವರ್ಡ್ ಹಾಕಿ");return;}let el=createPost(null);savePosts();el.scrollIntoView({behavior:'smooth'});}
+function likeThis(btn){let p=btn.closest('.post');let lc=p.querySelector('.like-count');let n=parseInt(lc.dataset.n||0);if(btn.classList.contains('liked')){btn.classList.remove('liked');n--;}else{btn.classList.add('liked');n++;}lc.dataset.n=n;lc.textContent=n+" Likes";savePosts();}
+function addCmt(btn){let p=btn.closest('.post');let inp=p.querySelector('.cmt-box input');let v=inp.value.trim();if(!v)return;let x=document.createElement('div');x.textContent=v;p.querySelector('.cmt-list').appendChild(x);inp.value="";savePosts();}
+function changePassword(){let old=prompt("ಹಳೆಯ ಪಾಸ್ವರ್ಡ್ ಹಾಕಿ:");if(old===null)return;if(old!==MY_PASSWORD){alert("ಹಳೆಯ ಪಾಸ್ವರ್ಡ್ ತಪ್ಪಾಗಿದೆ!");return;}let np=prompt("ಹೊಸ ಪಾಸ್ವರ್ಡ್ ಹಾಕಿ:");if(!np)return;let c=prompt("ಹೊಸ ಪಾಸ್ವರ್ಡ್ ಮತ್ತೊಮ್ಮೆ ಹಾಕಿ (ಕನ್ಫರ್ಮ್):");if(np!==c){alert("ಎರಡೂ ಒಂದೇ ಇಲ್ಲ! ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.");return;}MY_PASSWORD=np;localStorage.setItem("robert_pass",np);alert("ಪಾಸ್ವರ್ಡ್ ಬದಲಾಗಿದೆ!");}
+function saveAll(){let d={};document.querySelectorAll('#page1 [contenteditable]').forEach((el,i)=>{d[i]=el.innerHTML;});localStorage.setItem("robert_old_save_v2",JSON.stringify(d));savePosts();}
+function loadAll(){try{let s=localStorage.getItem("robert_old_save_v2");if(s){let d=JSON.parse(s);document.querySelectorAll('#page1 [contenteditable]').forEach((el,i)=>{if(d[i]!==undefined)el.innerHTML=d[i];});}}catch(e){}let p1=localStorage.getItem("robert_photo_main");if(p1)document.getElementById('preview').src=p1;let p2=localStorage.getItem("robert_photo_editor");if(p2)document.getElementById('preview2').src=p2;let saved=getData();if(saved&&saved.length){saved.forEach(x=>createPost(x));}else{createPost(null);}}
+document.addEventListener('input',function(e){if(e.target.classList&&e.target.classList.contains('new'))savePosts();if(e.target.hasAttribute('contenteditable'))saveAll();});
+function toggleEdit(){if(isEditing){saveAll();setLock(true);return;}let p=prompt("ಸಂಪಾದಕರು ಮಾತ್ರ - ಪಾಸ್ವರ್ಡ್ ಹಾಕಿ:");if(p===MY_PASSWORD){setLock(false);alert("ಸ್ವಾಗತ ಚಿನ್ವತ! ಈಗ ನೀನು ಎಡಿಟ್ ಮಾಡಬಹುದು.");}else if(p!==null){alert("ತಪ್ಪು ಪಾಸ್ವರ್ಡ್!");}}
+function setLock(lock){isEditing=!lock;document.body.className=lock?"locked":"editing";document.querySelectorAll('[contenteditable], .new').forEach(el=>{el.contentEditable=lock?"false":"true";});document.getElementById('lockStatus').innerText=lock?"🔒 ಓದಲು ಮಾತ್ರ - ಎಡಿಟ್ ಲಾಕ್ ಆಗಿದೆ":"🟢 ಎಡಿಟ್ ಮೋಡ್ ಆನ್ ಇದೆ - ಚಿನ್ವತ ಮಾತ್ರ";document.getElementById('loginBtn').innerText=lock?"🔑 ಸಂಪಾದಕರು":"🔓 ಲಾಕ್ ಮಾಡಿ";document.getElementById('loginBtn').className=lock?"":"unlocked";document.getElementById('changePassBtn').style.display=lock?"none":"inline-block";}
+function showPage2(){document.getElementById('page1').style.display='none';document.getElementById('page2').style.display='block';window.scrollTo(0,0);}
+function showPage1(){document.getElementById('page2').style.display='none';document.getElementById('page1').style.display='block';window.scrollTo(0,0);}
+function pickPhoto(id){if(!isEditing){alert("ಫೋಟೋ ಬದಲಾಯಿಸಲು ಮೊದಲು 🔑 ಸಂಪಾದಕರು ಮೇಲೆ ಕ್ಲಿಕ್ ಮಾಡಿ ಪಾಸ್ವರ್ಡ್ ಹಾಕಿ");return;}document.getElementById(id).click();}
+function compressImage(file,cb){if(!file)return;let r=new FileReader();r.onload=function(e){let img=new Image();img.onload=function(){let c=document.createElement('canvas');let max=800;let w=img.width,h=img.height;if(w>max){h=h*max/w;w=max;}c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);cb(c.toDataURL('image/jpeg',0.82));};img.src=e.target.result;};r.readAsDataURL(file);}
+document.getElementById('myphoto').onchange=function(e){compressImage(e.target.files[0],function(url){document.getElementById('preview').src=url;try{localStorage.setItem("robert_photo_main",url);}catch(err){alert("ಫೋಟೋ ದೊಡ್ಡದಿದೆ");}});}
+document.getElementById('myphoto2').onchange=function(e){compressImage(e.target.files[0],function(url){document.getElementById('preview2').src=url;try{localStorage.setItem("robert_photo_editor",url);}catch(err){alert("ಫೋಟೋ ದೊಡ್ಡದಿದೆ");}});}
+loadAll();
+</script>
+</body>
+</html>
